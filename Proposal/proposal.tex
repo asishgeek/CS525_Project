@@ -1,0 +1,52 @@
+\documentclass{article}      % Specifies the document class
+
+\usepackage{natbib}
+\usepackage{fullpage}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\graphicspath{{figures/}}
+\newcommand{\mrna}{\text{mRNA}~}
+\newcommand{\micrna}{\text{microRNA}~}
+\newcommand{\delg}{\ensuremath{\Delta G}~} % Delta G
+\newcommand{\deldelg}{\ensuremath{\Delta \Delta G}~} %Delta Delta G
+\newcommand{\mcal}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\mbf}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\mbb}[1]{\ensuremath{\mathbb{#1}}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newtheorem{definition}{Definition}
+\newcommand{\iref}[1]{Fig.~\ref{#1}}
+\newcommand{\X}{\ensuremath{\mathbf{X}}}
+
+\title{In-network reduction in Hadoop}  
+\author{Asish Ghoshal, Agrima Jindal, Riya Charaya}      
+\date{}
+
+\bibliographystyle{apalike}
+
+\begin{document}             % End of preamble and beginning of text.
+
+\maketitle                   % Produces the title.
+
+\section*{}
+Hadoop is one of the most popular implementations of MapReduce and has been extensively used in solving big data problems.
+The problem with processing massive amounts of data in Hadoop is that, a lot of network traffic is generated in the shuffle phase.
+Each reducer is responsible for grabbing data from all the mappers, after all the map tasks have been completed, and
+reducing the data locally. If there are $N$ nodes out of which $K$ participate in the reduce phase, 
+then the shuffle phase has an all-to-all traffic pattern with $\mathcal{O}(NK)$ flows.
+In this project we introduce in-network reduction for Hadoop wherein data is progressively reduced as it
+flows within the network. Towards this end, we propose to reduce data in a tree fashion across reducers i.e. in the first phase
+pairs of nodes reduce data among themselves, in the next iteration the data is further reduced and proceeds until there are $K$
+messages after which data is reduced locally. Our approach is similar to that of \citep{costa2012camdoop}; while \citep{costa2012camdoop}
+used a direct-connect network topology (CamCube), we plan to evaluate our approach on a variety of network topologies and compute
+various performance metrics like speedup, communication cost, clock time among others.
+
+
+\bibliography{proposal}
+
+\end{document}
